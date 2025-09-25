@@ -38,7 +38,7 @@ export default function JogoForca() {
   useEffect(() => { novaPartida(); }, []);
 
   function tocarSom(tipo) {
-    if (typeof window === "undefined") return; // só no cliente
+    if (typeof window === "undefined") return; 
     const audio = new Audio(tipo === "acerto" ? "/sounds/acerto.mp3" : "/sounds/erro.mp3");
     audio.play().catch(() => console.log("Erro ao tocar som"));
   }
