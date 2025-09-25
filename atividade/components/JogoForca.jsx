@@ -37,4 +37,42 @@ export default function JogoForca() {
 
   useEffect(() => { novaPartida(); }, []);
 
+  function tocarSom(tipo) {
+    if (typeof window === "undefined") return; // só no cliente
+    const audio = new Audio(tipo === "acerto" ? "/sounds/acerto.mp3" : "/sounds/erro.mp3");
+    audio.play().catch(() => console.log("Erro ao tocar som"));
+  }
+
+  function novaPartida() {
+    const aleatoria = LISTA_PALAVRAS[Math.floor(Math.random() * LISTA_PALAVRAS.length)];
+    setPalavra(aleatoria);
+    setLetrasCorretas([]);
+    setLetrasErradas([]);
+    setTentativasRestantes(6);
+    setStatus("jogando");
+  }
+
+  function verificarLetra(letra) {
+    if (status !== "jogando") return;
+    letra = letra.toUpperCase();
+    if (letrasCorretas.includes(letra) || letrasErradas.includes(letra)) return;
+
+    if (palavra.includes(letra)) {
+      setLetrasCorretas([...letrasCorretas, letra]);
+      tocarSom("acerto");
+    } else {
+      setLetrasErradas([...letrasErradas, letra]);
+      setTentativasRestantes(tentativasRestantes - 1);
+      tocarSom("erro");
+    }
+  }
+
+  useEffect(() => {
+  if (!palavra) return; 
+  if (tentativasRestantes === 0) setStatus("derrota");
+  else if (palavra.split("").every((l) => letrasCorretas.includes(l))) setStatus("vitoria");
+}, [letrasCorretas, tentativasRestantes, palavra]);
+
+
+
 }
