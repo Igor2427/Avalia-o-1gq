@@ -74,5 +74,46 @@ export default function JogoForca() {
 }, [letrasCorretas, tentativasRestantes, palavra]);
 
 
+  return (
+    <div style={{ textAlign: "center", fontFamily: "sans-serif", backgroundColor: "#0A192F", minHeight: "100vh", color: "white", padding: "20px" }}>
+      <header style={{ backgroundColor: "#000000", padding: "20px 0", textAlign: "center" }}>
+        <h1 style={{ color: "#fafafaff" }}>Jogo da Forca</h1>
+      </header>
+
+      <Boneco tentativasRestantes={tentativasRestantes} />
+
+      <p>Tentativas restantes: {tentativasRestantes}</p>
+
+      <p>
+        {palavra.split("").map((letra, i) => (
+          <span key={i} style={{ margin: "0 5px", fontSize: "24px", borderBottom: "2px solid white" }}>
+            {letrasCorretas.includes(letra) ? letra : "_"}
+          </span>
+        ))}
+      </p>
+
+      <div style={{ marginTop: "20px" }}>
+        {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letra) => (
+          <button
+            key={letra}
+            onClick={() => verificarLetra(letra)}
+            disabled={letrasCorretas.includes(letra) || letrasErradas.includes(letra) || status !== "jogando"}
+            style={{ margin: "2px", padding: "10px", fontSize: "16px", cursor: "pointer" }}
+          >
+            {letra}
+          </button>
+        ))}
+      </div>
+
+      {status !== "jogando" && (
+        <div style={{ marginTop: "20px" }}>
+          <h2>{status === "vitoria" ? "Você ganhou!" : `Você perdeu! Palavra: ${palavra}`}</h2>
+          <button onClick={novaPartida} style={{ padding: "10px 20px", fontSize: "16px", cursor: "pointer" }}>Nova partida</button>
+        </div>
+      )}
+    </div>
+);
+
+
 
 }
