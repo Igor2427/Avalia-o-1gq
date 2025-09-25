@@ -13,7 +13,7 @@ export default function JogoPage() {
         padding: "20px",
         minHeight: "100vh",
         color: "#fff",
-        background: "linear-gradient(to bottom, #0055A4 0%, #0055A4 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #EF4135 66.66%, #EF4135 100%)", // três faixas sólidas
+        background: "linear-gradient(to bottom, #0055A4 0%, #0055A4 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #EF4135 66.66%, #EF4135 100%)",
       }}
     >
       <div style={{ width: "100%", maxWidth: "600px" }}>
